@@ -12,4 +12,4 @@ CREATE TABLE pokemones (
 );
 
 INSERT INTO pokemones (numero, nombre, tipo, descripcion, imagen)
-VALUES (1, 'Charmander', 'Fuego', 'Prefiere lugares calientes', '');
+VALUES (1, 'Charmander', 'Fuego', 'Prefiere lugares calientes', 'charmander.jpg');

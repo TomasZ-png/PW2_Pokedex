@@ -1,4 +1,11 @@
-
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pokedex - inicio</title>
+</head>
+<body>
 
 <?php
 
@@ -24,8 +31,10 @@
         echo "<td>".$pokemon["nombre"]."</td>";
         echo "<td>".$pokemon["tipo"]."</td>";
         echo "<td>".$pokemon["descripcion"]."</td>";
-        echo "<td>".$pokemon["imagen"]."</td>";
+        echo "<td><img width='100px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
         echo "</tr>";
     }
     echo "</table>";
 ?>
+</body>
+</html>
