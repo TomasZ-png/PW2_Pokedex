@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="pokedex_db@localhost" uuid="04de3a8d-97bc-458c-bae3-f9c1e6b0be04">
+    <data-source source="LOCAL" name="pokedex_db@localhost" uuid="9b8e6d21-56d3-4091-a42b-ca82903cb0d6">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3307/pokedex_db</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="pokedex_db@localhost [2]" uuid="f455bba0-3d05-426c-8097-c980e0728a1b">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3307/pokedex_db</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/pokedex_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
