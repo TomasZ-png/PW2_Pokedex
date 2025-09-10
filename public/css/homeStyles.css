@@ -17,7 +17,7 @@ main{
 }
 
 .pokemon {
-    background-color: #ff9f9f;
+    background-color: rgba(166, 166, 166, 0.44);
     padding: 10px;
     border-radius: 5px;
     width: 300px;

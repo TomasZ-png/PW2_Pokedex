@@ -25,7 +25,7 @@ main{
     flex-direction: column;
 }
 
-.form-container form input, textarea{
+.form-container form input, textarea, select{
     padding: 7px;
     border: none;
     border-radius: 6px;

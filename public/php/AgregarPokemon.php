@@ -18,7 +18,27 @@
         <label for="nombre-pokemon">Nombre:</label>
         <input type="text" name="nombre" id="nombre-pokemon" placeholder="Nombre">
         <label for="tipo-pokemon">Tipo de Pokemon:</label>
-        <input type="text" name="tipo" id="tipo-pokemon" placeholder="Tipo">
+        <select id="tipo-pokemon" name="tipo">
+            <option value="" disabled selected>-- Seleccione el tipo de Pokemon --</option>
+            <option value="Normal">Normal</option>
+            <option value="Fuego">Fuego</option>
+            <option value="Agua">Agua</option>
+            <option value="Planta">Planta</option>
+            <option value="Electrico">Eléctrico</option>
+            <option value="Hielo">Hielo</option>
+            <option value="Lucha">Lucha</option>
+            <option value="Veneno">Veneno</option>
+            <option value="Tierra">Tierra</option>
+            <option value="Volador">Volador</option>
+            <option value="Psiquico">Psíquico</option>
+            <option value="Bicho">Bicho</option>
+            <option value="Roca">Roca</option>
+            <option value="Fantasma">Fantasma</option>
+            <option value="Dragon">Dragón</option>
+            <option value="Siniestro">Siniestro</option>
+            <option value="Acero">Acero</option>
+            <option value="Hada">Hada</option>
+        </select>
         <label for="descripcion-pokemon">Descripcion:</label>
         <textarea name="descripcion" id="descripcion-pokemon" placeholder="Agrega una descripcion a tu Pokemon"></textarea>
         <label for="imagen-pokemon">Imagen:</label>
@@ -79,7 +99,7 @@
             }
 
             if (!empty($erroresImagen) || !empty($errores)) {
-                echo "<h3>No se pudo cargar la imagen</h3>";
+                echo "<h3>No se pudo agregar el Pokemon</h3>";
                 echo implode("<br>", $erroresImagen);
                 echo "<br>";
                 echo implode("<br>", $errores);
@@ -89,20 +109,18 @@
                 $rutaDeImagen = $directorio . basename($nombreFinalImagen);
 
                 if (move_uploaded_file($nombreTemporal, $rutaDeImagen)) {
-                    echo "imagen subida correctamente";
+                    include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
+                    $conexion = new MyDatabase();
+
+                    $query = "INSERT INTO pokemones (numero, nombre, tipo, descripcion, imagen)
+                        VALUES ($numero, '$nombre', '$tipo', '$descripcion', '$nombreFinalImagen')";
+
+                    $conexion->query($query);
+
+                    echo "<h3>Pokemon agregado correctamente</h3>";
                 } else {
                     echo "la imagen no pudo ser subida correctamente";
                 }
-
-                include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
-                $conexion = new MyDatabase();
-
-                $query = "INSERT INTO pokemones (numero, nombre, tipo, descripcion, imagen)
-                        VALUES ($numero, '$nombre', '$tipo', '$descripcion', '$nombreFinalImagen')";
-
-                $conexion->query($query);
-
-                echo "Pokemon agregado correctamente";
             }
         } else {
             echo "La imagen esta vacia";
