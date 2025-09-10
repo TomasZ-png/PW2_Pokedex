@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/homeStyles.css">
     <title>Pokedex - inicio</title>
 </head>
 <body>
+<main>
+
 <h1>Pokedex</h1>
+    <div class="pokemones-container">
 <?php
 
     include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
@@ -16,20 +20,19 @@
 
     $pokemones = $conexion->query($query);
 
-    echo "<table border='1'>";
     foreach ($pokemones as $pokemon){
-        echo "<tr>";
-        echo "<td>".$pokemon["id_pokemon"]."</td>";
-        echo "<td>".$pokemon["numero"]."</td>";
-        echo "<td>".$pokemon["nombre"]."</td>";
-        echo "<td>".$pokemon["tipo"]."</td>";
-        echo "<td>".$pokemon["descripcion"]."</td>";
-        echo "<td><img width='100px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
-        echo "</tr>";
+    echo "<div class='pokemon'>";
+        echo "<div class='datos-pokemon'>";
+        echo "<p>" . $pokemon["numero"] . "</p>";
+        echo "<p>" . $pokemon["nombre"] . "</p>";
+        echo "<p>" . $pokemon["tipo"] . "</p>";
+        echo "</div>";
+        echo "<img width='100px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
+    echo "</div>";
     }
-    echo "</table>";
 ?>
-
+    </div>
+</main>
 <a href="AgregarPokemon.php">Nuevo Pokemon</a>
 
 </body>
