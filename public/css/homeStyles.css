@@ -1,0 +1,26 @@
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pokemones-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pokemon {
+    background-color: #ff9f9f;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+}

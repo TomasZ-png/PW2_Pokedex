@@ -27,87 +27,87 @@
     </form>
 
 <?php
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        $numero = $_POST["numero"];
+        $nombre = $_POST["nombre"];
+        $tipo = $_POST["tipo"];
+        $descripcion = $_POST["descripcion"];
+        $imagen = $_FILES["imagen"];
+        $errores = [];
 
-    $numero = $_POST["numero"];
-    $nombre = $_POST["nombre"];
-    $tipo = $_POST["tipo"];
-    $descripcion = $_POST["descripcion"];
-    $imagen = $_FILES["imagen"];
-    $errores = [];
-
-    if(empty($numero)){
-        $errores[] = "Numero vacio";
-    }
-
-    if(empty($nombre) || strlen($nombre) < 3){
-        $errores[] = "Nombre vacio o muy corto";
-    }
-
-    if(empty($tipo) || strlen($tipo) < 3){
-        $errores[] = "Tipo vacio o muy corto";
-    }
-
-    if(empty($descripcion)){
-        $errores[] = "Descripcion vacia";
-    }
-
-    if(isset($_FILES["imagen"])){
-        $nombreImagen = $_FILES["imagen"]["name"];
-        $tipoImagen = $_FILES["imagen"]["type"];
-        $tamanioImagen = $_FILES["imagen"]["size"];
-        $nombreTemporal = $_FILES["imagen"]["tmp_name"];
-        $error = $_FILES["imagen"]["error"];
-        $directorio = __DIR__ . "/../../src/img/";
-        $erroresImagen = [];
-
-        if($error !== UPLOAD_ERR_OK){
-            $erroresImagen[] = "Error al cargar la imagen. Código de error: $error";
+        if (empty($numero)) {
+            $errores[] = "Numero vacio";
         }
 
-        if(empty($erroresImagen)){
-            $tamanio_max = 5 * 1024 * 1024;
-
-            if($tamanioImagen > $tamanio_max){
-                $erroresImagen[] = "La imagen no puede superar los 5 MB";
-            }
-
-            $extensiones_permitidas = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
-
-            if(!in_array($tipoImagen, $extensiones_permitidas)){
-                $erroresImagen[] = "El tipo de imagen no es permitido";
-            }
+        if (empty($nombre) || strlen($nombre) < 3) {
+            $errores[] = "Nombre vacio o muy corto";
         }
 
-        if(!empty($erroresImagen) || !empty($errores)){
-            echo "<h3>No se pudo cargar la imagen</h3>";
-            echo implode("<br>", $erroresImagen);
-            echo "<br>";
-            echo implode("<br>", $errores);
-        } else {
-            $extensionArchivo = strtolower(pathinfo($nombreImagen, PATHINFO_EXTENSION));
-            $nombreFinalImagen = $nombre . "." . $extensionArchivo;
-            $rutaDeImagen = $directorio . basename($nombreFinalImagen);
+        if (empty($tipo) || strlen($tipo) < 3) {
+            $errores[] = "Tipo vacio o muy corto";
+        }
 
-            if(move_uploaded_file($nombreTemporal, $rutaDeImagen)){
-                echo "imagen subida correctamente";
+        if (empty($descripcion)) {
+            $errores[] = "Descripcion vacia";
+        }
+
+        if (isset($_FILES["imagen"])) {
+            $nombreImagen = $_FILES["imagen"]["name"];
+            $tipoImagen = $_FILES["imagen"]["type"];
+            $tamanioImagen = $_FILES["imagen"]["size"];
+            $nombreTemporal = $_FILES["imagen"]["tmp_name"];
+            $error = $_FILES["imagen"]["error"];
+            $directorio = __DIR__ . "/../../src/img/";
+            $erroresImagen = [];
+
+            if ($error !== UPLOAD_ERR_OK) {
+                $erroresImagen[] = "Error al cargar la imagen. Código de error: $error";
+            }
+
+            if (empty($erroresImagen)) {
+                $tamanio_max = 5 * 1024 * 1024;
+
+                if ($tamanioImagen > $tamanio_max) {
+                    $erroresImagen[] = "La imagen no puede superar los 5 MB";
+                }
+
+                $extensiones_permitidas = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+
+                if (!in_array($tipoImagen, $extensiones_permitidas)) {
+                    $erroresImagen[] = "El tipo de imagen no es permitido";
+                }
+            }
+
+            if (!empty($erroresImagen) || !empty($errores)) {
+                echo "<h3>No se pudo cargar la imagen</h3>";
+                echo implode("<br>", $erroresImagen);
+                echo "<br>";
+                echo implode("<br>", $errores);
             } else {
-                echo "la imagen no pudo ser subida correctamente";
-            }
+                $extensionArchivo = strtolower(pathinfo($nombreImagen, PATHINFO_EXTENSION));
+                $nombreFinalImagen = $nombre . "." . $extensionArchivo;
+                $rutaDeImagen = $directorio . basename($nombreFinalImagen);
 
-            include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
-            $conexion = new MyDatabase();
+                if (move_uploaded_file($nombreTemporal, $rutaDeImagen)) {
+                    echo "imagen subida correctamente";
+                } else {
+                    echo "la imagen no pudo ser subida correctamente";
+                }
 
-            $query = "INSERT INTO pokemones (numero, nombre, tipo, descripcion, imagen)
+                include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
+                $conexion = new MyDatabase();
+
+                $query = "INSERT INTO pokemones (numero, nombre, tipo, descripcion, imagen)
                         VALUES ($numero, '$nombre', '$tipo', '$descripcion', '$nombreFinalImagen')";
-            
-            $conexion->query($query);
 
-            echo "Pokemon agregado correctamente";
+                $conexion->query($query);
+
+                echo "Pokemon agregado correctamente";
+            }
+        } else {
+            echo "La imagen esta vacia";
         }
-    } else {
-        echo "La imagen esta vacia";
     }
-
 ?>
     </div>
 </main>
