@@ -10,10 +10,9 @@ main{
 }
 
 .pokemones-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    gap: 20px;
 }
 
 .pokemon {
@@ -23,4 +22,22 @@ main{
     width: 300px;
     display: flex;
     justify-content: space-around;
+}
+
+.pokemon .numero-pokemon{
+    color: gray;
+    font-weight: bold;
+}
+
+.pokemon .nombre-pokemon{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.pokemon .tipo-pokemon{
+    background-color: rgba(128, 128, 128, 0.55);
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    width: auto;
 }

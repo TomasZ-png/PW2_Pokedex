@@ -23,9 +23,9 @@
     foreach ($pokemones as $pokemon){
     echo "<div class='pokemon'>";
         echo "<div class='datos-pokemon'>";
-        echo "<p>" . $pokemon["numero"] . "</p>";
-        echo "<p>" . $pokemon["nombre"] . "</p>";
-        echo "<p>" . $pokemon["tipo"] . "</p>";
+        echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
+        echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
+        echo "<p class='tipo-pokemon'>" . $pokemon["tipo"] . "</p>";
         echo "</div>";
         echo "<img width='100px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
     echo "</div>";
