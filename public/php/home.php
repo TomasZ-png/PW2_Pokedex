@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/homeStyles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <title>Pokedex - inicio</title>
 </head>
 <body>
 <main>
 
-<h1>Pokedex</h1>
+<div class="header-arriba">
+    <div class="imagen-contenedor">
+        <a href="home.php"><img class="logo" src="../../src/img/logo-pokebola.png" alt="logo pokebola"></a>
+    </div>
+    <div class="titulo-container">
+        <h1>Pokédex</h1>
+    </div>
+</div>
     <div class="pokemones-container">
 <?php
 
@@ -27,14 +35,22 @@
 
         $pokemones = $result;
 
+        $tipos_pokemones_logo = ["Planta", "Agua", "Fuego"];
+
         foreach ($pokemones as $pokemon){
         echo "<div class='pokemon'>";
             echo "<div class='datos-pokemon'>";
             echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
             echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
-            echo "<p class='tipo-pokemon'>" . $pokemon["tipo"] . "</p>";
+            if(in_array($pokemon["tipo"], $tipos_pokemones_logo)){
+                echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'></td>";
+
+            }else{
+                echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . $pokemon["tipo"] . "</p>";
+
+            }
             echo "</div>";
-            echo "<img width='100px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
+            echo "<img width='150px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
         echo "</div>";
         }
     } else {
@@ -46,9 +62,12 @@
 
 
 <header class="header">
-    <ul>
-        <li class="agregar"><a class="nuevo-pokemon-button" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i>Agregar Pokemon</a></li>
-    </ul>
+    <div class="agregar-boton">
+        <a class="nuevo-pokemon-button circle" href="AgregarPokemon.php">
+            <i class="bi bi-plus-circle"></i>
+        </a>
+        <span>Agregar Pokemon</span>
+    </div>
 </header>
 
 </body>

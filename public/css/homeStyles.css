@@ -9,19 +9,48 @@ main{
     align-items: center;
 }
 
+.header-arriba{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.header-arriba h1{
+    font-size: 50px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.header-arriba .imagen-contenedor{
+    position: absolute;
+    left: 20px;
+}
+
+.header-arriba img{
+    width: 70px;
+}
+
 .pokemones-container{
     display: grid;
     grid-template-columns:1fr 1fr 1fr 1fr;
     gap: 20px;
 }
 
+.datos-pokemon{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
 .pokemon {
     background-color: rgba(166, 166, 166, 0.44);
-    padding: 10px;
+    padding: 20px;
     border-radius: 5px;
     width: 300px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     transition: all 0.2s ease-in-out;
 }
 
@@ -32,35 +61,24 @@ main{
 .pokemon .numero-pokemon{
     color: gray;
     font-weight: bold;
+    margin: 0;
 }
 
 .pokemon .nombre-pokemon{
     font-weight: bold;
     font-size: 20px;
+    margin: 15px 0;
 }
 
 .pokemon .tipo-pokemon{
-    background-color: rgba(128, 128, 128, 0.55);
-    color: white;
     padding: 5px;
     border-radius: 10px;
-    width: auto;
+    margin: 0;
 }
 
-.nuevo-pokemon-button{
-    background-color: rgb(255, 105, 39);
-    color: white;
-    padding: 8px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 20px;
-    transition: all 0.2s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.pokemon img{
+    object-fit: cover;
 }
-
 
 .header{
     width: 100%;
@@ -71,25 +89,116 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
     z-index: 1000;
 }
 
-.header ul{
-    list-style: none;
+.agregar-boton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
 }
 
-.header ul li i{
-    font-size: 44px;
+.agregar-boton .circle {
     background-color: rgb(255, 105, 39);
-    padding: 10px 14px;
     border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: white;
+    text-decoration: none;
     position: absolute;
-    top: -40px;
-    transition: all 0.2s ease-in-out;
+    top: -35px;  /* saca el círculo para que quede mitad adentro, mitad afuera */
 }
 
-.header ul li i:hover{
-    background-color: rgb(221, 67, 0);
+.agregar-boton span {
+    margin: 40px 0 20px 0; /* separa el texto para que quede debajo del círculo */
+    color: white;
+    font-size: 18px;
 }
 
+.normal{
+    background-color: rgba(156, 156, 156, 0.58);
+    color: white;
+}
+
+.electrico{
+    background-color: rgb(255, 215, 39);
+    border: solid 1px white;
+}
+
+.hielo{
+    background-color: rgb(53, 183, 255);
+    border: solid 1px white;
+
+}
+
+.lucha{
+    background-color: rgb(255, 146, 73);
+    border: solid 1px white;
+}
+
+.veneno{
+    background-color: rgb(34, 120, 0);
+    border: solid 1px white;
+    color: white;
+}
+
+.tierra{
+    background-color: #753a00;
+    border: solid 1px white;
+    color: white;
+}
+
+.volador{
+    background-color: rgb(255, 255, 255);
+    border: solid 1px black;
+}
+
+.psiquico{
+    background-color: rgb(178, 87, 243);
+    border: solid 1px white;
+}
+
+.bicho{
+    background-color: rgb(44, 92, 255);
+    border: solid 1px #000000;
+    color: white;
+}
+
+.roca{
+    background-color: rgb(73, 73, 73);
+    border: solid 1px white;
+    color: white;
+}
+
+.fantasma{
+    background-color: rgb(103, 103, 103);
+    border: solid 1px white;
+}
+
+.dragon{
+    background-color: rgb(255, 71, 71);
+    border: solid 1px white;
+}
+
+.siniestro{
+    background-color: rgb(157, 255, 160);
+    border: solid 1px white;
+}
+
+.acero{
+    background-color: rgb(0, 0, 0);
+    border: solid 1px white;
+    color: white;
+}
+
+.hada{
+    background-color: rgb(243, 146, 255);
+    border: solid 1px white;
+    color: white;
+}
