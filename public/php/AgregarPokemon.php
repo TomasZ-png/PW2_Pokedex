@@ -47,6 +47,10 @@
     </form>
 
 <?php
+        include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
+        $conexion = new MyDatabase();
+        $conn = $conexion->getConexion();
+
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $numero = $_POST["numero"];
         $nombre = $_POST["nombre"];
@@ -55,16 +59,34 @@
         $imagen = $_FILES["imagen"];
         $errores = [];
 
-        if (empty($numero)) {
-            $errores[] = "Numero vacio";
+
+        if (empty($numero) || !is_numeric($numero) || $numero <= 0) {
+            $errores[] = "Numero invalido";
+        } else {
+            $stmt = $conn->prepare("SELECT * FROM pokemones WHERE numero = ?");
+            $stmt->bind_param("i", $numero);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if($result->num_rows > 0) {
+                $errores[] = "El numero $numero ya existe";
+            }
         }
 
         if (empty($nombre) || strlen($nombre) < 3) {
             $errores[] = "Nombre vacio o muy corto";
         }
 
-        if (empty($tipo) || strlen($tipo) < 3) {
-            $errores[] = "Tipo vacio o muy corto";
+        $tiposAceptados = ["Normal", "Fuego", "Agua", "Planta", "Electrico", "Hielo", "Lucha", "Veneno",
+                           "Tierra", "Volador", "Psiquico", "Bicho", "Roca", "Fantasma", "Dragon",
+                           "Siniestro", "Acero", "Hada"];
+
+        if (empty($tipo)) {
+            $errores[] = "Tipo vacio";
+        } else {
+            if(!in_array($tipo, $tiposAceptados)) {
+                $errores[] = "Tipo de Pokemon no permitido";
+            }
         }
 
         if (empty($descripcion)) {
@@ -109,15 +131,19 @@
                 $rutaDeImagen = $directorio . basename($nombreFinalImagen);
 
                 if (move_uploaded_file($nombreTemporal, $rutaDeImagen)) {
-                    include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
-                    $conexion = new MyDatabase();
 
-                    $query = "INSERT INTO pokemones (numero, nombre, tipo, descripcion, imagen)
-                        VALUES ($numero, '$nombre', '$tipo', '$descripcion', '$nombreFinalImagen')";
+                    $stmt2 = $conn->prepare(
+                            "INSERT INTO pokemones (numero, nombre, tipo, descripcion, imagen)VALUES(?, ?, ?, ?, ?)");
 
-                    $conexion->query($query);
+                    $stmt2->bind_param("issss", $numero, $nombre, $tipo, $descripcion, $nombreFinalImagen);
+                    $result = $stmt2->execute();
 
-                    echo "<h3>Pokemon agregado correctamente</h3>";
+                    if($result){
+                        echo "<h3>Pokemon agregado correctamente</h3>";
+                    } else {
+                        echo "<h3>Error al agregar al Pokemon</h3>";
+                    }
+
                 } else {
                     echo "la imagen no pudo ser subida correctamente";
                 }
