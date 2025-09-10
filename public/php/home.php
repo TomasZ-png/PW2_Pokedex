@@ -6,18 +6,11 @@
     <title>Pokedex - inicio</title>
 </head>
 <body>
-
+<h1>Pokedex</h1>
 <?php
 
     include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
-    $config = parse_ini_file(__DIR__ . "/../../config/config.ini");
-
-    $conexion = new MyDatabase(
-        $config["server"],
-        $config["user"],
-        $config["pass"],
-        $config["database"]
-    );
+    $conexion = new MyDatabase();
 
     $query = "SELECT * FROM pokemones";
 
@@ -36,5 +29,8 @@
     }
     echo "</table>";
 ?>
+
+<a href="AgregarPokemon.php">Nuevo Pokemon</a>
+
 </body>
 </html>
