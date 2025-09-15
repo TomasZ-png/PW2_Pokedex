@@ -57,18 +57,21 @@
         echo "<h2>No hay pokemones para mostrar</h2>";
     }
 ?>
+
+
     </div>
+        <a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>
 </main>
 
 
-<header class="header">
-    <div class="agregar-boton">
-        <a class="nuevo-pokemon-button circle" href="AgregarPokemon.php">
-            <i class="bi bi-plus-circle"></i>
-        </a>
-        <span>Agregar Pokemon</span>
-    </div>
-</header>
+<!--<header class="header">-->
+<!--    <div class="agregar-boton">-->
+<!--        <a class="nuevo-pokemon-button circle" href="AgregarPokemon.php">-->
+<!--            <i class="bi bi-plus-circle"></i>-->
+<!--        </a>-->
+<!--        <span>Agregar Pokemon</span>-->
+<!--    </div>-->
+<!--</header>-->
 
 </body>
 </html>
