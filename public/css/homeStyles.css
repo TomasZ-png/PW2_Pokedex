@@ -35,6 +35,8 @@ main{
     display: grid;
     grid-template-columns:1fr 1fr 1fr 1fr;
     gap: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 .datos-pokemon{
@@ -92,33 +94,19 @@ main{
     z-index: 1000;
 }
 
-.agregar-boton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
-}
-
-.agregar-boton .circle {
-    background-color: rgb(255, 105, 39);
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
+.agregar-btn{
+    padding: 10px;
+    background-color: #ff5b23;
     color: white;
     text-decoration: none;
-    position: absolute;
-    top: -35px;  /* saca el círculo para que quede mitad adentro, mitad afuera */
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: all 0.2s ease-in-out;
 }
 
-.agregar-boton span {
-    margin: 40px 0 20px 0; /* separa el texto para que quede debajo del círculo */
-    color: white;
-    font-size: 18px;
+.agregar-btn:hover{
+    background-color: #ff0000;
+
 }
 
 .normal{
