@@ -47,6 +47,7 @@
     </form>
 
 <?php
+session_start();
         include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
         $conexion = new MyDatabase();
         $conn = $conexion->getConexion();
