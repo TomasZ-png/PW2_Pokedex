@@ -35,7 +35,7 @@
             } else {
                echo '<ul>
                         <li><a class="header-btn" href="registrarse.php">Registrarse</a></li>
-                        <li><a class="header-btn" href="">Iniciar Sesion</a></li>
+                        <li><a class="header-btn" href="login.php">Iniciar Sesion</a></li>
                     </ul>';
             }
         ?>
