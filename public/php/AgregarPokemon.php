@@ -48,6 +48,11 @@
 
 <?php
 session_start();
+
+        if(!isset($_POST["rol_usuario"]) && $_POST["rol_usuario"] != "ADMIN"){
+            header("location: home.php");
+        }
+
         include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
         $conexion = new MyDatabase();
         $conn = $conexion->getConexion();
