@@ -49,7 +49,7 @@
 <?php
 session_start();
 
-        if(!isset($_POST["rol_usuario"]) && $_POST["rol_usuario"] != "ADMIN"){
+        if(!isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] != "ADMIN"){
             header("location: home.php");
         }
 
