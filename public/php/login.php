@@ -18,6 +18,12 @@
 
     <?php
         session_start();
+
+        if(isset($_SESSION["id_usuario"]) || isset($_SESSION["nombre_usuario"]) || isset($_SESSION["rol_usuario"])){
+            header("Location: home.php");
+            exit();
+        }
+
         include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
         $conexion = new MyDatabase();
         $conn = $conexion->getConexion();
@@ -33,7 +39,6 @@
                 $stmt->bind_param("ss", $correo, $password);
                 $stmt->execute();
                 $result = ($stmt->get_result())->fetch_assoc();
-
 
                 if($result){
                     $_SESSION["nombre_usuario"] = $result["nombre"];
