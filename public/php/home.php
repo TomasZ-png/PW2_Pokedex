@@ -12,11 +12,33 @@
 <main>
 
 <div class="header-arriba">
-    <div class="imagen-contenedor">
-        <a href="home.php"><img class="logo" src="../../src/img/logo-pokebola.png" alt="logo pokebola"></a>
+    <div class="titulo-logo-container">
+        <div class="imagen-contenedor">
+            <a href="home.php"><img class="logo" src="../../src/img/logo-pokebola.png" alt="logo pokebola"></a>
+        </div>
+        <div class="titulo-container">
+            <h1>Pokédex</h1>
+        </div>
     </div>
-    <div class="titulo-container">
-        <h1>Pokédex</h1>
+
+
+
+    <div class="header-buttons">
+        <?php
+        session_start();
+            if(isset($_SESSION["id_usuario"])){
+                echo '<a class="header-user" href="">' . $_SESSION["nombre_usuario"] . ' <i class="bi bi-person-circle"></i> <i class="bi bi-caret-down-fill"></i> </a>';
+                echo '<ul class="header-dropdown">
+                        <li><a href="logout.php"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
+                    </ul>';
+
+            } else {
+               echo '<ul>
+                        <li><a class="header-btn" href="registrarse.php">Registrarse</a></li>
+                        <li><a class="header-btn" href="">Iniciar Sesion</a></li>
+                    </ul>';
+            }
+        ?>
     </div>
 </div>
     <div class="pokemones-container">
@@ -28,8 +50,6 @@
     $stmt = $conexion->prepare("SELECT * FROM pokemones");
     $stmt->execute();
     $result = $stmt->get_result();
-
-    $query = "SELECT * FROM pokemones";
 
     if($result->num_rows > 0){
 
@@ -57,21 +77,15 @@
         echo "<h2>No hay pokemones para mostrar</h2>";
     }
 ?>
-
-
     </div>
-        <a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>
+
+    <?php
+
+        if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
+          echo '<a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
+        }
+
+    ?>
 </main>
-
-
-<!--<header class="header">-->
-<!--    <div class="agregar-boton">-->
-<!--        <a class="nuevo-pokemon-button circle" href="AgregarPokemon.php">-->
-<!--            <i class="bi bi-plus-circle"></i>-->
-<!--        </a>-->
-<!--        <span>Agregar Pokemon</span>-->
-<!--    </div>-->
-<!--</header>-->
-
 </body>
 </html>

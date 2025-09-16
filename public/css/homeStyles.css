@@ -1,5 +1,6 @@
 *{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
 }
 
 main{
@@ -11,10 +12,12 @@ main{
 
 .header-arriba{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    position: relative;
     width: 100%;
+    padding: 20px;
+    background: #d1daff;
+    margin-bottom: 50px;
 }
 
 .header-arriba h1{
@@ -22,14 +25,225 @@ main{
     font-family: 'Orbitron', sans-serif;
 }
 
-.header-arriba .imagen-contenedor{
-    position: absolute;
-    left: 20px;
+.titulo-logo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
 }
 
 .header-arriba img{
     width: 70px;
 }
+
+.header-buttons{
+    position: relative;
+    margin-right: 20px;
+}
+
+.header-buttons ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin-right: 20px;
+}
+
+.header-btn{
+    text-decoration: none;
+    color: white;
+    background-color: #ff5b23;
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out    ;
+}
+
+.header-btn:hover{
+    background-color: #ff3f00;
+}
+
+.header-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #2c3e50;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.header-user:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: #ff5b23;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    color: #ff5b23;
+}
+
+.header-user i.bi-caret-down-fill {
+    transition: transform 0.3s ease;
+    font-size: 12px;
+}
+
+.header-buttons:hover .header-user i.bi-caret-down-fill {
+    transform: rotate(180deg);
+}
+
+.header-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    min-width: 180px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.header-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+    filter: drop-shadow(0 -2px 4px rgba(0,0,0,0.1));
+}
+
+.header-dropdown li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #2c3e50;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    position: relative;
+}
+
+.header-dropdown li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: #ff5b23;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.header-dropdown li a:hover {
+    background: linear-gradient(90deg, rgba(255, 91, 35, 0.08) 0%, rgba(255, 91, 35, 0.02) 100%);
+    color: #ff5b23;
+    padding-left: 24px;
+}
+
+.header-dropdown li a:hover::before {
+    opacity: 1;
+}
+
+.header-buttons:hover .header-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Animación suave para el hover del contenedor */
+.header-buttons {
+    transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-arriba {
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .header-arriba h1 {
+        font-size: 36px;
+    }
+
+    .titulo-logo-container {
+        margin-left: 0;
+    }
+
+    .header-buttons ul {
+        margin-right: 0;
+    }
+
+    .header-dropdown {
+        right: 50%;
+        transform: translateX(50%) translateY(-10px);
+    }
+
+    .header-buttons:hover .header-dropdown {
+        transform: translateX(50%) translateY(0);
+    }
+}
+
+
+
+/*.header-user {*/
+/*    display: inline-block;*/
+/*    padding: 10px;*/
+/*    cursor: pointer;*/
+/*    text-decoration: none;*/
+/*    color: #333;*/
+/*}*/
+
+/*.header-dropdown {*/
+/*    display: none;*/
+/*    position: absolute;*/
+/*    top: 100%;*/
+/*    left: 0;*/
+/*    background-color: white;*/
+/*    border: 1px solid #ccc;*/
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*    min-width: 150px;*/
+/*    z-index: 1000;*/
+
+/*}*/
+
+/*.header-dropdown li a {*/
+/*    display: block;*/
+/*    padding: 10px;*/
+/*    text-decoration: none;*/
+/*    color: #333;*/
+/*}*/
+
+/*.header-dropdown li a:hover {*/
+/*    background-color: #f0f0f0;*/
+/*}*/
+
+/*.header-buttons:hover .header-dropdown {*/
+/*    display: block;*/
+/*}*/
+
 
 .pokemones-container{
     display: grid;
@@ -81,18 +295,6 @@ main{
 
 .pokemon img{
     object-fit: cover;
-}
-
-.header{
-    width: 100%;
-    background-color: rgb(255, 105, 39);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
 }
 
 .agregar-btn{
