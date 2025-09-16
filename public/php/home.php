@@ -58,7 +58,7 @@
         $tipos_pokemones_logo = ["Planta", "Agua", "Fuego"];
 
         foreach ($pokemones as $pokemon){
-        echo "<div class='pokemon'>";
+        echo "<div class='pokemon'><a href='pokemonVista.php?id_pokemon=" . $pokemon["id_pokemon"] . "'>";
             echo "<div class='datos-pokemon'>";
             echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
             echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
@@ -71,7 +71,7 @@
             }
             echo "</div>";
             echo "<img width='150px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
-        echo "</div>";
+        echo "</a></div>";
         }
     } else {
         echo "<h2>No hay pokemones para mostrar</h2>";
