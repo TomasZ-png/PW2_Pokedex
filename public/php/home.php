@@ -95,6 +95,10 @@
           echo '<a class="agregar-btn" href="BorrarPokemon.php"><i class="bi bi-plus-circle"></i> Borrar Pokemon</a>';
         }
 
+        if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
+          echo '<a class="agregar-btn" href="EditarPokemon.php"><i class="bi bi-plus-circle"></i> Editar Pokemon</a>';
+        }
+
     ?>
 </main>
 </body>
