@@ -46,6 +46,7 @@
         <button type="submit">Agregar Pokemon</button>
     </form>
 
+
 <?php
 session_start();
 
@@ -158,6 +159,12 @@ session_start();
             echo "La imagen esta vacia";
         }
     }
+
+
+
+
+    
+
 ?>
     </div>
 </main>

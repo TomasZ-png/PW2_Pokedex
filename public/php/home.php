@@ -22,6 +22,12 @@
     </div>
 
 
+    <h3 class="buscar">Buscar Pokemon</h3>
+    <form action="pokemonBuscado.php" method="get">
+        <input type="text" name="nombre" id="nombre" placeholder="nombre">
+        <button type="submit">Buscar</button>
+    </form>
+
 
     <div class="header-buttons">
         <?php
@@ -84,8 +90,14 @@
         if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
           echo '<a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
         }
+        
+        if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
+          echo '<a class="agregar-btn" href="BorrarPokemon.php"><i class="bi bi-plus-circle"></i> Borrar Pokemon</a>';
+        }
 
     ?>
 </main>
 </body>
 </html>
+
+
