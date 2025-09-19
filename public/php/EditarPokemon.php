@@ -4,23 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/agregarPokemonStyles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
     <link rel="icon" type="image/png" href="\PW2_Pokedex\src\img\favicon.ico">
     <title>Pokedex - Editar Pokemon</title>
 </head>
 <body>
-<a href="home.php">Volver a inicio</a>
+<div><a class="volver-btn" href="home.php"><i class="bi bi-arrow-left-short"></i> Volver a inicio</a></div>
 
+<?php
+
+session_start();
+
+if(!isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] != "ADMIN"){
+    header("location: home.php");
+}
+
+include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
+$conexion = new MyDatabase();
+$conn = $conexion->getConexion();
+
+if(isset($_GET["id_pokemon"])){
+    $id_pokemon = $_GET["id_pokemon"];
+} else{
+    $id_pokemon = "";
+}
+
+
+$stmtBuscar = $conn->prepare("SELECT * FROM pokemones WHERE id_pokemon = ?");
+$stmtBuscar->bind_param("i", $id_pokemon);
+$stmtBuscar->execute();
+$resultado = ($stmtBuscar->get_result())->fetch_assoc();
+
+if($resultado){
+    $nombrePokemon = $resultado["nombre"];
+    $numeroPokemon = $resultado["numero"];
+    $descripcionPokemon = $resultado["descripcion"];
+    $tipoPokemon = $resultado["tipo"];
+    $imagenPokemon = $resultado["imagen"];
+}
+
+if (empty($resultado)){
+    $nombrePokemon = "";
+    $numeroPokemon = "";
+    $descripcionPokemon = "";
+    $tipoPokemon = "";
+    $imagenPokemon = "";
+}
+
+echo '<div class="form-container">
+        <div class="formulario">
 
 <h1>Editar Pokemon</h1>
     <div class="form-container">
     <form action="" method="post" enctype="multipart/form-data">
         <label for="numero-pokemon">Numero:</label>
-        <input type="number" name="numero" id="numero-pokemon" placeholder="Numero">
+        <input type="number" name="numero" id="numero-pokemon" placeholder="Numero" value="'.$numeroPokemon.'">
         <label for="nombre-pokemon">Nombre:</label>
-        <input type="text" name="nombre" id="nombre-pokemon" placeholder="Nombre">
+        <input type="text" name="nombre" id="nombre-pokemon" placeholder="Nombre" value="'.$nombrePokemon.'">
         <label for="tipo-pokemon">Tipo de Pokemon:</label>
         <select id="tipo-pokemon" name="tipo">
-            <option value="" disabled selected>-- Seleccione el tipo de Pokemon --</option>
+            <option value="'.$tipoPokemon.'">'.$tipoPokemon.'</option>
             <option value="Normal">Normal</option>
             <option value="Fuego">Fuego</option>
             <option value="Agua">Agua</option>
@@ -41,29 +84,17 @@
             <option value="Hada">Hada</option>
         </select>
         <label for="descripcion-pokemon">Descripcion:</label>
-        <textarea name="descripcion" id="descripcion-pokemon" placeholder="Agrega una descripcion a tu Pokemon"></textarea>
+        <textarea name="descripcion" id="descripcion-pokemon" placeholder="Agrega una descripcion a tu Pokemon">'.$descripcionPokemon.'</textarea>
         <label for="imagen-pokemon">Imagen:</label>
-        <input type="file" name="imagen" id="imagen-pokemon" placeholder="Numero">
-        <button type="submit">Editar Pokemon</button>
-    </form>
-    
-</body>
-</html>
+        <img STYLE="margin: 10px" width="150px" height="150px" src="../../src/img/' . $imagenPokemon . '" alt="foto pokemon">        
+        <input type="file" name="imagen" id="imagen-pokemon" placeholder="Numero" >
+        <div class="btn-form">
+        <button class="form-button" type="submit"><i class="bi bi-check2-circle"></i> Editar Pokemon</button>
+        <a class="form-button" href="home.php"><i class="bi bi-x-circle"></i> Cancelar</a>
+        </div>
+    </form>';
 
 
-
-
-<?php
-
-session_start();
-
-if(!isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] != "ADMIN"){
-    header("location: home.php");
-}
-
-include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
-$conexion = new MyDatabase();
-$conn = $conexion->getConexion();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $numero = $_POST["numero"];
@@ -166,3 +197,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
+</body>
+</html>

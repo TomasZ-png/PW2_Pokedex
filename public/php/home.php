@@ -43,7 +43,7 @@
     
     <form class="buscar" action="pokemonBuscado.php" method="get">
         <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre, tipo o número de pokemon">
-        <button type="submit" class="btn-buscar">Buscar</button>
+        <button type="submit" class="btn-buscar"><i class="bi bi-search"></i> Buscar</button>
     </form>
 
     <div class="pokemones-container">
@@ -78,12 +78,12 @@
 
                 }
                 echo "</div>";
-                echo "<img width='150px' height='150px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'>";
+                    echo "<img width='150px' height='150px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'>";
             echo "</a>";
             if(isset($_SESSION['id_usuario']) && isset($_SESSION['rol_usuario']) && $_SESSION['rol_usuario'] == 'ADMIN'){
                 echo "<div class='acciones-admin'>";
                 echo "<a class='admin-btn editar' href='EditarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
-                
+                echo "<a class='borrar-btn admin-btn' href='BorrarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-trash'></i> Borrar</a>";
                 echo "</div>";
             }
         echo "</div>";
@@ -99,7 +99,6 @@
         if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
             echo '<div class="admin-btn-container">';
             echo '<a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
-            echo "<a class='borrar-btn' href='BorrarPokemon.php'><i class='bi bi-trash'></i> Borrar</a>";
             echo '</div>';
         }
 

@@ -15,14 +15,49 @@ main{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #e6e6e6;
     padding: 20px;
     border-radius: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.volver-btn{
+    background: #ff5b23;
+    border-radius: 5px;
+    padding: 5px;
+    text-decoration: none;
+    color: white;
+    transition: all ease-in-out 0.2s;
+    margin: 10px;
+}
+
+.volver-btn:hover{
+    background: #ff2323;
+}
+
+.formulario{
+    background-color: #ededed;
+    width: 30%;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.formulario h1{
+    text-align: center;
+}
+
+.btn-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .form-container form{
     display: flex;
     flex-direction: column;
+
 }
 
 .form-container form input, textarea, select{
@@ -32,16 +67,19 @@ main{
     margin: 10px 0 20px 0;
 }
 
-.form-container form button{
+.form-button{
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #ffa585;
+    background-color: #ff5b23;
     transition:  all 0.2s ease-in-out;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
 }
 
-.form-container form button:hover{
-    background-color: #ff5b23;
+.form-button:hover{
+    background-color: #fd4100;
     color: #fff;
 }
