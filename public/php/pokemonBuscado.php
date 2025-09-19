@@ -10,6 +10,7 @@
     <title>Pokedex - Buscar Pokemon</title>
 </head>
 <body>
+<main>
 
  <div class="header-arriba">
     <div class="titulo-logo-container">
@@ -21,12 +22,11 @@
         </div>
     </div>
 
-
-    <h3 class="buscar">Buscar Pokemon</h3>
-    <form action="pokemonBuscado.php" method="get">
-        <input type="text" name="nombre" id="nombre" placeholder="nombre">
-        <button type="submit">Buscar</button>
-    </form>
+<!--    <h3 class="buscar">Buscar Pokemon</h3>-->
+<!--    <form action="pokemonBuscado.php" method="get">-->
+<!--        <input type="text" name="nombre" id="nombre" placeholder="nombre">-->
+<!--        <button type="submit">Buscar</button>-->
+<!--    </form>-->
 
 
     <div class="header-buttons">
@@ -47,14 +47,14 @@
         ?>
     </div>
 </div>
-    
-</body>
-</html>
+
+    <form class="buscar" action="pokemonBuscado.php" method="get">
+        <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre, tipo o número de pokemon">
+        <button type="submit" class="btn-buscar">Buscar</button>
+    </form>
 
 
-
-
-<?php
+ <?php
 
 include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
 $conexion = new MyDatabase();
@@ -62,40 +62,51 @@ $pokemones = []; // Inicializamos el array de pokemones vacío
 
 // aca buscamos por nombre
 if (isset($_GET["nombre"]) && $_GET["nombre"] != "") {
-    $nombre = $_GET["nombre"];
-    $stmt = $conexion->prepare("SELECT * FROM pokemones WHERE nombre = '$nombre'");
+    $nombre = trim($_GET["nombre"]);
+    $stmt = $conexion->prepare("SELECT * FROM pokemones WHERE nombre LIKE '$nombre%' 
+                                        OR numero LIKE '$nombre%' OR tipo LIKE '$nombre%'");
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     // si no encuentra resultados
     if (mysqli_num_rows($result) == 0) {
-        echo "<p>No se encontró el pokemon: '$nombre'. Mostrando todos los pokemones:</p>";
+        echo "<div class='mensaje'><p><i class='bi bi-x-circle'></i> No se encontró el pokemon: <strong>'$nombre'</strong>. Mostrando todos los pokemones:</p></div>";
+        echo '<div class="pokemones-container">';
         $stmt = $conexion->prepare("SELECT * FROM pokemones");
         $stmt->execute();
         $result = $stmt->get_result();
     }else{
-        echo "<p>Pokemon encontrado!</p>";
+        echo "<div class='mensaje'><p>Resultados encontrados de <strong>'$nombre'</strong>:</p></div>";
+        echo '<div class="pokemones-container">';
         $pokemones = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-//MOSTRAMOS LOS POKEMONES
-$tipos_pokemones_logo = ["Planta", "Agua", "Fuego"];
+        //MOSTRAMOS LOS POKEMONES
+        $tipos_pokemones_logo = ["Planta", "Agua", "Fuego"];
 
-foreach ($pokemones as $pokemon) {
-    
+        foreach ($pokemones as $pokemon) {
             echo "<div class='pokemon'>";
-                echo "<img  src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
-                echo "<div class='datos-pokemon'>";
-                    echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
-                    echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
-                    echo "<p class='descripcion-pokemon'>" . $pokemon["descripcion"] . "</p>";
-                    if(in_array($pokemon["tipo"], $tipos_pokemones_logo)){
-                        echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'></td>";
-                    }else{
-                        echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . $pokemon["tipo"] . "</p>";
-                    }
+            echo "<a href='pokemonVista.php?id_pokemon=" . $pokemon["id_pokemon"] . "'>";
+            echo "<div class='datos-pokemon'>";
+            echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
+            echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
+            if(in_array($pokemon["tipo"], $tipos_pokemones_logo)){
+                echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'>";
+
+            }else{
+                echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . $pokemon["tipo"] . "</p>";
+
+            }
+            echo "</div>";
+            echo "<img width='150px' height='150px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'>";
+            echo "</a>";
+            if(isset($_SESSION['id_usuario']) && isset($_SESSION['rol_usuario']) && $_SESSION['rol_usuario'] == 'ADMIN'){
+                echo "<div class='acciones-admin'>";
+                echo "<a class='admin-btn editar' href='EditarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
+
                 echo "</div>";
-            echo "</a></div>";
-}
+            }
+            echo "</div>";
+        }
     }
 } else {
     // la query para  mostrar todos los pokemones
@@ -110,19 +121,33 @@ $pokemones = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $tipos_pokemones_logo = ["Planta", "Agua", "Fuego"];
 
 foreach ($pokemones as $pokemon) {
-    
-            echo "<div class='pokemon'>";
-                echo "<img  src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
-                echo "<div class='datos-pokemon'>";
-                    echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
-                    echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
-                    if(in_array($pokemon["tipo"], $tipos_pokemones_logo)){
-                        echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'></td>";
-                    }else{
-                        echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . $pokemon["tipo"] . "</p>";
-                    }
-                echo "</div>";
-            echo "</a></div>";
+    echo "<div class='pokemon'>";
+    echo "<a href='pokemonVista.php?id_pokemon=" . $pokemon["id_pokemon"] . "'>";
+    echo "<div class='datos-pokemon'>";
+    echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
+    echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
+    if(in_array($pokemon["tipo"], $tipos_pokemones_logo)){
+        echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'>";
+
+    }else{
+        echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . $pokemon["tipo"] . "</p>";
+
+    }
+    echo "</div>";
+    echo "<img width='150px' height='150px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'>";
+    echo "</a>";
+    if(isset($_SESSION['id_usuario']) && isset($_SESSION['rol_usuario']) && $_SESSION['rol_usuario'] == 'ADMIN'){
+        echo "<div class='acciones-admin'>";
+        echo "<a class='admin-btn editar' href='EditarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
+
+        echo "</div>";
+    }
+    echo "</div>";
+
 }
 ?>
+
+</main>
+</body>
+</html>
 
