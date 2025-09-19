@@ -3,38 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
     <link rel="stylesheet" href="../css/agregarPokemonStyles.css">
+    <link rel="stylesheet" href="../css/homeStyles.css">
     <link rel="icon" type="image/png" href="\PW2_Pokedex\src\img\favicon.ico">
     <title>Pokedex - Borrar Pokemon</title>
 </head>
 <body>
-<a href="home.php">Volver a inicio</a>
+<main>
 
+    <div><a class="volver-btn" href="home.php"><i class="bi bi-arrow-left-short"></i> Volver a inicio</a></div>
 
-<h1>Borrar Pokemon</h1>
-    <div class="form-container">
+    <?php
+    session_start();
+    if(!isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] != "ADMIN"){
+        header("location: home.php");
+    }
+
+    include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
+    $conexion = new MyDatabase();
+    $conn = $conexion->getConexion();
+
+    if(isset($_GET["id_pokemon"])){
+        $id_pokemon = $_GET["id_pokemon"];
+    } else{
+        $id_pokemon = "";
+    }
+
+    $stmtBuscar = $conn->prepare("SELECT nombre FROM pokemones WHERE id_pokemon = ?");
+    $stmtBuscar->bind_param("i", $id_pokemon);
+    $stmtBuscar->execute();
+    $resultado = ($stmtBuscar->get_result())->fetch_assoc();
+
+    if($resultado){
+        $nombrePokemon = $resultado["nombre"];
+    }
+
+    if (empty($resultado)){
+        $nombrePokemon = "";
+    }
+
+    echo '<div class="form-container">
+        <div class="formulario">
+
+    <h1>Borrar Pokemon</h1>
         <form action="" method="get">
             <label for="nombreEliminar">Nombre:</label>
-            <input type="text" name="nombreEliminar" id="nombreEliminar" placeholder="Nombre">
-            <button type="submit">Eliminar Pokemon</button>
+            <input type="text" name="nombreEliminar" id="nombreEliminar" placeholder="Nombre" value="' . $nombrePokemon . '">
+            <div class="btn-form">
+                <button class="form-button" type="submit"><i class="bi bi-check2-circle"></i> Eliminar Pokemon</button>
+                <a class="form-button" href="home.php"><i class="bi bi-x-circle"></i> Cancelar</a>
+            </div>
         </form>
     </div>
-    
-</body>
-</html>
+        </div>
 
-
-<?php
-
-session_start();
-
-        if(!isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] != "ADMIN"){
-            header("location: home.php");
-        }
-
-        include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
-        $conexion = new MyDatabase();
-        $conn = $conexion->getConexion();
+<div class="pokemones-container">';
 
 
  //eliminar pokemon
@@ -65,26 +89,35 @@ if (empty($pokemones)) {
 } else {
     $tipos_con_logo = ["Planta", "Agua", "Fuego"];
     
-    foreach ($pokemones as $pokemon) { 
+    foreach ($pokemones as $pokemon) {
         echo "<div class='pokemon'>";
-        echo "<img src='../../src/img/" . htmlspecialchars($pokemon["imagen"]) . "' alt='foto pokemon'>";
+        echo "<a href='pokemonVista.php?id_pokemon=" . $pokemon["id_pokemon"] . "'>";
         echo "<div class='datos-pokemon'>";
-        echo "<p class='numero-pokemon'>N°" . htmlspecialchars($pokemon["numero"]) . "</p>";
-        echo "<p class='nombre-pokemon'>" . htmlspecialchars($pokemon["nombre"]) . "</p>";
-        echo "<p class='descripcion-pokemon'>" . htmlspecialchars($pokemon["descripcion"]) . "</p>";
-        
-        if (in_array($pokemon["tipo"], $tipos_con_logo)) {
-            echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto tipo pokemon'>";
-        } else {
-            echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . htmlspecialchars($pokemon["tipo"]) . "</p>";
+        echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
+        echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
+        if(in_array($pokemon["tipo"], $tipos_con_logo)){
+            echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'>";
+
+        }else{
+            echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . $pokemon["tipo"] . "</p>";
+
         }
-        
         echo "</div>";
-        echo "</div>"; 
+        echo "<img width='150px' height='150px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'>";
+        echo "</a>";
+        if(isset($_SESSION['id_usuario']) && isset($_SESSION['rol_usuario']) && $_SESSION['rol_usuario'] == 'ADMIN'){
+            echo "<div class='acciones-admin'>";
+            echo "<a class='admin-btn editar' href='EditarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
+            echo "<a class='borrar-btn admin-btn' href='BorrarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-trash'></i> Borrar</a>";
+            echo "</div>";
+        }
+        echo "</div>";
     }
 }
 
 ?>
-
-
+</div>
+</main>
+</body>
+</html>
     
