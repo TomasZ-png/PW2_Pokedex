@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="\PW2_Pokedex\src\img\favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="../css/loggin-style.css">
     <title>Registrarse</title>
 </head>
 <body>
+<main>
+
+    <div>
+    <a class="volver-btn" href="home.php"><i class="bi bi-arrow-left-short"></i>Volver</a>
+    <div class="contenedor-principal">
     <h1>Bienvenido a Pokedex!</h1>
 
     <form action="registrarse.php" method="post" enctype="multipart/form-data">
@@ -16,8 +23,6 @@
         <input id="correo" type="text" name="correo" placeholder="Correo">
         <label for="contrasenia">Contraseña:</label>
         <input id="contrasenia" type="password" name="password" placeholder="Contraseña">
-        <button type="submit">Registrarse</button>
-    </form>
 
     <?php
         session_start();
@@ -39,17 +44,17 @@
             $errores = [];
 
             if(empty($nombre) || empty($correo) || empty($contrasenia)){
-                $errores[] = "Todos los campos son obligatorios";
+                $errores[] = "<p class='errores'>*Todos los campos son obligatorios</p>";
             }else{
 
                 if(strlen($nombre) < 3 || strlen($nombre) > 20 ){
-                    $errores[] = "El nombre debe tener al menos entre 3 y 20 caracteres";
+                    $errores[] = "<p class='errores'>*El nombre debe tener al menos entre 3 y 20 caracteres</p>";
                 }
 
                 $regex_correo = "/^[\w\-.]+@[\w\-]+(\.[a-zA-Z]{2,4}){1,2}$/";
 
                 if(!preg_match($regex_correo, $correo)){
-                    $errores[] = "Correo no valido";
+                    $errores[] = "<p class='errores'>*Correo no valido</p>";
                 }
 
                 $regex_contrasenia = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\w\-.]{8,}$/";
@@ -69,14 +74,14 @@
                 $result = $stmt->get_result();
 
                 if($result->num_rows > 0){
-                    echo "El usuario ya existe";
+                    echo "<p class='errores'>*El usuario ya existe</p>";
                 } else {
                     $stmt2 = $conn->prepare("INSERT INTO usuario (nombre, correo, password, rol) 
                                                     VALUES(?, ?, ?, 'USER')");
                     $stmt2->bind_param("sss", $nombre, $correo, $contrasenia);
                     $result2 = $stmt2->execute();
                     if($result2){
-                        echo "El usuario se registro correctamente";
+                        echo "<p>El usuario se registro correctamente</p>";
 
                         $id_usuario = $conn->insert_id;
 
@@ -91,7 +96,7 @@
                         header("location: home.php");
                         exit();
                     } else {
-                        echo "El usuario no se registro correctamente";
+                        echo "<p class='errores'>*El usuario no se registro correctamente</p>";
                         header("location: registrarse.php");
                         exit();
                     }
@@ -100,6 +105,12 @@
         }
     ?>
 
+        <button type="submit">Registrarse</button>
+    </form>
+    </div>
+    </div>
+
+</main>
 </body>
 </html>
 
