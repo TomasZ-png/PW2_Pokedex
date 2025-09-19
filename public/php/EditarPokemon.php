@@ -15,7 +15,7 @@
 
 session_start();
 
-if(!isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] != "ADMIN"){
+if(!isset($_SESSION["rol_usuario"]) || $_SESSION["rol_usuario"] != "ADMIN"){
     header("location: home.php");
 }
 
@@ -28,7 +28,6 @@ if(isset($_GET["id_pokemon"])){
 } else{
     $id_pokemon = "";
 }
-
 
 $stmtBuscar = $conn->prepare("SELECT * FROM pokemones WHERE id_pokemon = ?");
 $stmtBuscar->bind_param("i", $id_pokemon);
@@ -56,7 +55,8 @@ echo '<div class="form-container">
 
 <h1>Editar Pokemon</h1>
     <div class="form-container">
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="EditarPokemon.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id_pokemon" value="'. $id_pokemon.'">
         <label for="numero-pokemon">Numero:</label>
         <input type="number" name="numero" id="numero-pokemon" placeholder="Numero" value="'.$numeroPokemon.'">
         <label for="nombre-pokemon">Nombre:</label>
@@ -97,6 +97,7 @@ echo '<div class="form-container">
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_pokemon = $_POST["id_pokemon"];
     $numero = $_POST["numero"];
     $nombre = $_POST["nombre"];
     $tipo = $_POST["tipo"];
@@ -170,16 +171,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
              move_uploaded_file($nombreTemporal, $rutaDeImagen);
         }
         
-        
         if ($imagenSubida) {
             $stmt2 = $conn->prepare(
                 "UPDATE pokemones SET numero = ?, nombre = ?, tipo = ?, descripcion = ?, imagen = ? WHERE id_pokemon = ?");
-            $stmt2->bind_param("issssi", $numero, $nombre, $tipo, $descripcion, $nombreFinalImagen, $id);
+            $stmt2->bind_param("issssi", $numero, $nombre, $tipo, $descripcion, $nombreFinalImagen, $id_pokemon);
         } else {
-            
             $stmt2 = $conn->prepare(
                 "UPDATE pokemones SET numero = ?, nombre = ?, tipo = ?, descripcion = ? WHERE id_pokemon = ?");
-            $stmt2->bind_param("isssi", $numero, $nombre, $tipo, $descripcion, $id);
+            $stmt2->bind_param("isssi", $numero, $nombre, $tipo, $descripcion, $id_pokemon);
         }
 
         $result = $stmt2->execute();
@@ -189,9 +188,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "<h3>Error al editar al Pokemon</h3>";
         }
-
     } else {
-       
         echo "<h3>No se pudo editar el Pokemon</h3>";
         echo implode("<br>", $errores);
     }
