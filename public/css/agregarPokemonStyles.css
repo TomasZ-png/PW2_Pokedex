@@ -65,6 +65,14 @@ main{
     border: none;
     border-radius: 6px;
     margin: 10px 0 20px 0;
+    border-left: solid 1px #a8a8a8;
+    transition: border linear 0.1s;
+
+}
+
+.form-container form input:focus, textarea:focus, select:focus{
+    outline: none;
+    border-left: solid 4px #ff5b23;
 }
 
 .form-button{

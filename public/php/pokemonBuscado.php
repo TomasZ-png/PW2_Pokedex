@@ -47,6 +47,15 @@
     </form>
 
 
+    <?php
+    if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
+        echo '<div class="admin-btn-container">';
+        echo '<a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
+        echo '</div>';
+    }
+    ?>
+
+
  <?php
 
 include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
@@ -54,7 +63,7 @@ $conexion = new MyDatabase();
 $pokemones = []; // Inicializamos el array de pokemones vacío
 
 // aca buscamos por nombre
-if (isset($_GET["nombre"]) && $_GET["nombre"] != "" && empty(["nombre"])) {
+if (isset($_GET["nombre"]) && $_GET["nombre"] != "" && !empty(["nombre"])) {
     $nombre = trim($_GET["nombre"]);
     $stmt = $conexion->prepare("SELECT * FROM pokemones WHERE nombre LIKE '$nombre%' 
                                         OR numero LIKE '$nombre%' OR tipo LIKE '$nombre%'");

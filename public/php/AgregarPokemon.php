@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/agregarPokemonStyles.css">
     <link rel="icon" type="image/png" href="\PW2_Pokedex\src\img\favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
+
     <title>Agregar Pokemon</title>
 </head>
 <body>
-<a href="home.php">Volver a inicio</a>
+<div><a class="volver-btn" href="home.php"><i class="bi bi-arrow-left-short"></i> Volver a inicio</a></div>
 
 <main>
+    <div class="form-container">
+        <div class="formulario">
 <h1>Agregar Pokemon</h1>
     <div class="form-container">
     <form action="AgregarPokemon.php" method="post" enctype="multipart/form-data">
@@ -44,9 +48,13 @@
         <textarea name="descripcion" id="descripcion-pokemon" placeholder="Agrega una descripcion a tu Pokemon"></textarea>
         <label for="imagen-pokemon">Imagen:</label>
         <input type="file" name="imagen" id="imagen-pokemon" placeholder="Numero">
-        <button type="submit">Agregar Pokemon</button>
+        <div class="btn-form">
+        <button class="form-button" type="submit"><i class="bi bi-check2-circle"></i> Agregar Pokemon</button>
+        <a class="form-button" href="home.php"><i class="bi bi-x-circle"></i> Cancelar</a>
+        </div>
     </form>
-
+    </div>
+        </div>
 
 <?php
 session_start();
