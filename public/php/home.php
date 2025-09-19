@@ -22,10 +22,6 @@
         </div>
     </div>
 
-
-    
-
-
     <div class="header-buttons">
         <?php
         session_start();
@@ -49,8 +45,8 @@
         <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre, tipo o número de pokemon">
         <button type="submit" class="btn-buscar">Buscar</button>
     </form>
+
     <div class="pokemones-container">
-        
 <?php
 
             
@@ -75,7 +71,7 @@
                 echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
                 echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
                 if(in_array($pokemon["tipo"], $tipos_pokemones_logo)){
-                    echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'></td>";
+                    echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'>";
 
                 }else{
                     echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . $pokemon["tipo"] . "</p>";

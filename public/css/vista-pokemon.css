@@ -227,7 +227,6 @@ main{
     transition: all 0.2s ease-in-out;
     text-decoration: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-    max-width: 60%;
 }
 
 
@@ -246,6 +245,7 @@ main{
 
 .pokemon .descripcion-pokemon{
     margin-bottom: 20px;
+    width: 260px;
 }
 
 
@@ -275,83 +275,84 @@ main{
 
 }
 
-.normal{
+.normal {
     background-color: rgba(156, 156, 156, 0.58);
     color: white;
 }
 
-.electrico{
-    background-color: rgb(255, 215, 39);
+.eléctrico {
+    background-color: rgb(255, 251, 39);
     border: solid 1px white;
+
 }
 
-.hielo{
+.hielo {
     background-color: rgb(53, 183, 255);
     border: solid 1px white;
-
 }
 
-.lucha{
+.lucha {
     background-color: rgb(255, 146, 73);
     border: solid 1px white;
+    color: white;
 }
 
-.veneno{
-    background-color: rgb(34, 120, 0);
+.veneno {
+    background-color: rgb(100, 0, 120);
     border: solid 1px white;
     color: white;
 }
 
-.tierra{
-    background-color: #753a00;
+.tierra {
+    background-color: #b45a00;
     border: solid 1px white;
     color: white;
 }
 
-.volador{
+.volador {
     background-color: rgb(255, 255, 255);
     border: solid 1px black;
 }
 
-.psiquico{
-    background-color: rgb(178, 87, 243);
+.psiquico {
+    background-color: rgb(243, 87, 183);
     border: solid 1px white;
 }
 
-.bicho{
-    background-color: rgb(44, 92, 255);
-    border: solid 1px #000000;
+.bicho {
+    background-color: rgb(76, 255, 52);
+    border: solid 1px #ffffff;
     color: white;
 }
 
-.roca{
-    background-color: rgb(73, 73, 73);
+.roca {
+    background-color: rgb(109, 40, 1);
     border: solid 1px white;
     color: white;
 }
 
-.fantasma{
+.fantasma {
     background-color: rgb(103, 103, 103);
     border: solid 1px white;
 }
 
-.dragon{
-    background-color: rgb(255, 71, 71);
+.dragon {
+    background-color: rgb(211, 207, 3);
     border: solid 1px white;
 }
 
-.siniestro{
-    background-color: rgb(157, 255, 160);
+.siniestro {
+    background-color: rgb(40, 65, 41);
     border: solid 1px white;
 }
 
-.acero{
-    background-color: rgb(0, 0, 0);
+.acero {
+    background-color: rgb(134, 134, 134);
     border: solid 1px white;
     color: white;
 }
 
-.hada{
+.hada {
     background-color: rgb(243, 146, 255);
     border: solid 1px white;
     color: white;
