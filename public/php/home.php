@@ -40,17 +40,21 @@
         ?>
     </div>
 </div>
-    
     <form class="buscar" action="pokemonBuscado.php" method="get">
         <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre, tipo o número de pokemon">
         <button type="submit" class="btn-buscar"><i class="bi bi-search"></i> Buscar</button>
     </form>
 
+    <?php
+        if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
+            echo '<div class="admin-btn-container">';
+            echo '<a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
+            echo '</div>';
+        }
+    ?>
+
     <div class="pokemones-container">
 <?php
-
-            
-
     include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
     $conexion = new MyDatabase();
 
@@ -93,17 +97,6 @@
     }
 ?>
     </div>
-
-    <?php
-
-        if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
-            echo '<div class="admin-btn-container">';
-            echo '<a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
-            echo '</div>';
-        }
-
-
-    ?>
 </main>
 </body>
 </html>
