@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../css/homeStyles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="\PW2_Pokedex\src\img\favicon.ico">
     <title>Pokedex - Buscar Pokemon</title>
 </head>
 <body>

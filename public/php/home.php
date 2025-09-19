@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../css/homeStyles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="\PW2_Pokedex\src\img\favicon.ico">
     <title>Pokedex - inicio</title>
 </head>
 <body>
@@ -22,11 +23,7 @@
     </div>
 
 
-    <h3 class="buscar">Buscar Pokemon</h3>
-    <form action="pokemonBuscado.php" method="get">
-        <input type="text" name="nombre" id="nombre" placeholder="nombre">
-        <button type="submit">Buscar</button>
-    </form>
+    
 
 
     <div class="header-buttons">
@@ -47,8 +44,16 @@
         ?>
     </div>
 </div>
+    
+    <form class="buscar" action="pokemonBuscado.php" method="get">
+        <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre, tipo o número de pokemon">
+        <button type="submit" class="btn-buscar">Buscar</button>
+    </form>
     <div class="pokemones-container">
+        
 <?php
+
+            
 
     include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
     $conexion = new MyDatabase();
@@ -64,20 +69,28 @@
         $tipos_pokemones_logo = ["Planta", "Agua", "Fuego"];
 
         foreach ($pokemones as $pokemon){
-        echo "<div class='pokemon'><a href='pokemonVista.php?id_pokemon=" . $pokemon["id_pokemon"] . "'>";
-            echo "<div class='datos-pokemon'>";
-            echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
-            echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
-            if(in_array($pokemon["tipo"], $tipos_pokemones_logo)){
-                echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'></td>";
+        echo "<div class='pokemon'>";
+            echo "<a href='pokemonVista.php?id_pokemon=" . $pokemon["id_pokemon"] . "'>";
+                echo "<div class='datos-pokemon'>";
+                echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
+                echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
+                if(in_array($pokemon["tipo"], $tipos_pokemones_logo)){
+                    echo "<img width='40px' src='../../src/img-tipo/tipo-" . strtolower($pokemon["tipo"]) . ".png' alt='foto pokemon'></td>";
 
-            }else{
-                echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . $pokemon["tipo"] . "</p>";
+                }else{
+                    echo "<p class='tipo-pokemon " . strtolower($pokemon["tipo"]) . "'>" . $pokemon["tipo"] . "</p>";
 
+                }
+                echo "</div>";
+                echo "<img width='150px' height='150px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'>";
+            echo "</a>";
+            if(isset($_SESSION['id_usuario']) && isset($_SESSION['rol_usuario']) && $_SESSION['rol_usuario'] == 'ADMIN'){
+                echo "<div class='acciones-admin'>";
+                echo "<a class='admin-btn editar' href='EditarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
+                
+                echo "</div>";
             }
-            echo "</div>";
-            echo "<img width='150px' src='../../src/img/" . $pokemon["imagen"] . "' alt='foto pokemon'></td>";
-        echo "</a></div>";
+        echo "</div>";
         }
     } else {
         echo "<h2>No hay pokemones para mostrar</h2>";
@@ -88,16 +101,12 @@
     <?php
 
         if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
-          echo '<a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
-        }
-        
-        if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
-          echo '<a class="agregar-btn" href="BorrarPokemon.php"><i class="bi bi-plus-circle"></i> Borrar Pokemon</a>';
+            echo '<div class="admin-btn-container">';
+            echo '<a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
+            echo "<a class='borrar-btn' href='BorrarPokemon.php'><i class='bi bi-trash'></i> Borrar</a>";
+            echo '</div>';
         }
 
-        if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
-          echo '<a class="agregar-btn" href="EditarPokemon.php"><i class="bi bi-plus-circle"></i> Editar Pokemon</a>';
-        }
 
     ?>
 </main>
