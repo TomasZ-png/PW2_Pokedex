@@ -187,14 +187,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $result = $stmt2->execute();
 
-        if($result){
-            echo "<h3>Pokemon editado correctamente</h3>";
+
+            if($result){
+                echo "<script>
+        alert('¡Pokémon editado correctamente!');
+        window.location.href = 'home.php';
+            </script>";
+                exit;
         } else {
-            echo "<h3>Error al editar al Pokemon</h3>";
+                echo "<script>
+        alert('¡Error al editar al Pokemon!');
+            </script>";
         }
     } else {
-        echo "<h3>No se pudo editar el Pokemon</h3>";
         echo implode("<br>", $errores);
+        echo "<script>
+        alert('¡No se pudo editar el Pokemon!');
+            </script>";
+
     }
 }
 ?>
