@@ -111,15 +111,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($numero) || !is_numeric($numero) || $numero <= 0) {
         $errores[] = "Numero invalido";
-    } else {
-        $stmt = $conn->prepare("SELECT * FROM pokemones WHERE numero = ?");
-        $stmt->bind_param("i", $numero);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if($result->num_rows > 0) {
-            $errores[] = "El numero $numero ya existe";
-        }
     }
 
     if (empty($nombre) || strlen($nombre) < 3) {
