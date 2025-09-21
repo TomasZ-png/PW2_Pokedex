@@ -85,8 +85,12 @@ echo '<div class="form-container">
         </select>
         <label for="descripcion-pokemon">Descripcion:</label>
         <textarea name="descripcion" id="descripcion-pokemon" placeholder="Agrega una descripcion a tu Pokemon">'.$descripcionPokemon.'</textarea>
-        <label for="imagen-pokemon">Imagen:</label>
-        <img STYLE="margin: 10px" width="150px" height="150px" src="../../src/img/' . $imagenPokemon . '" alt="foto pokemon">        
+         <label for="imagen-pokemon">Imagen:</label>
+        <div class="btn-form">
+       
+        <img STYLE="margin: 10px" width="150px" height="150px" src="../../src/img/' . $imagenPokemon . '" alt="foto pokemon">
+        </div>  
+           
         <input type="file" name="imagen" id="imagen-pokemon" placeholder="Numero" >
         <div class="btn-form">
         <button class="form-button" type="submit"><i class="bi bi-check2-circle"></i> Editar Pokemon</button>
