@@ -54,7 +54,7 @@ echo '<div class="form-container">
         <div class="formulario">
 
 <h1>Editar Pokemon</h1>
-    <div class="form-container">
+    <div >
     <form action="EditarPokemon.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id_pokemon" value="'. $id_pokemon.'">
         <label for="numero-pokemon">Numero:</label>
