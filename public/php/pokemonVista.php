@@ -43,6 +43,10 @@
     <div class="pokemon-container">
         <?php
 
+        if(!isset($_SESSION["id_usuario"])){
+            header("location: login.php");
+        }
+
         include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
         $conexion = new MyDatabase();
         $conn = $conexion->getConexion();
