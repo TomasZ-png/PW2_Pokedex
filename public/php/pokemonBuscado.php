@@ -24,12 +24,12 @@
 
     <div class="header-buttons">
         <?php
+        session_start();
 
         if(!isset($_SESSION["id_usuario"])){
             header("location: login.php");
         }
 
-        session_start();
             if(isset($_SESSION["id_usuario"])){
                 echo '<a class="header-user" href="">' . $_SESSION["nombre_usuario"] . ' <i class="bi bi-person-circle"></i> <i class="bi bi-caret-down-fill"></i> </a>';
                 echo '<ul class="header-dropdown">
