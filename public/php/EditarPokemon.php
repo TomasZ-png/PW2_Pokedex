@@ -54,7 +54,7 @@ echo '<div class="form-container">
         <div class="formulario">
 
 <h1>Editar Pokemon</h1>
-    <div class="form-container">
+    <div >
     <form action="EditarPokemon.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id_pokemon" value="'. $id_pokemon.'">
         <label for="numero-pokemon">Numero:</label>
@@ -85,8 +85,12 @@ echo '<div class="form-container">
         </select>
         <label for="descripcion-pokemon">Descripcion:</label>
         <textarea name="descripcion" id="descripcion-pokemon" placeholder="Agrega una descripcion a tu Pokemon">'.$descripcionPokemon.'</textarea>
-        <label for="imagen-pokemon">Imagen:</label>
-        <img STYLE="margin: 10px" width="150px" height="150px" src="../../src/img/' . $imagenPokemon . '" alt="foto pokemon">        
+         <label for="imagen-pokemon">Imagen:</label>
+        <div class="btn-form">
+       
+        <img STYLE="margin: 10px" width="150px" height="150px" src="../../src/img/' . $imagenPokemon . '" alt="foto pokemon">
+        </div>  
+           
         <input type="file" name="imagen" id="imagen-pokemon" placeholder="Numero" >
         <div class="btn-form">
         <button class="form-button" type="submit"><i class="bi bi-check2-circle"></i> Editar Pokemon</button>
@@ -105,7 +109,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $imagen = $_FILES["imagen"];
     $errores = [];
 
-    
     if (empty($numero) || !is_numeric($numero) || $numero <= 0) {
         $errores[] = "Numero invalido";
     }
@@ -183,14 +186,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $result = $stmt2->execute();
 
-        if($result){
-            echo "<h3>Pokemon editado correctamente</h3>";
+
+            if($result){
+                echo "<script>
+        alert('¡Pokémon editado correctamente!');
+        window.location.href = 'home.php';
+            </script>";
+                exit;
         } else {
-            echo "<h3>Error al editar al Pokemon</h3>";
+                echo "<script>
+        alert('¡Error al editar al Pokemon!');
+            </script>";
         }
     } else {
-        echo "<h3>No se pudo editar el Pokemon</h3>";
         echo implode("<br>", $errores);
+        echo "<script>
+        alert('¡No se pudo editar el Pokemon!');
+            </script>";
+
     }
 }
 ?>

@@ -15,7 +15,6 @@ main{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     border-radius: 10px;
     width: 100%;
     margin-top: 20px;
@@ -49,6 +48,7 @@ main{
 
 .btn-form{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 20px;
@@ -76,6 +76,8 @@ main{
 }
 
 .form-button{
+    display: flex;
+    flex-wrap: wrap;
     border: none;
     padding: 10px;
     border-radius: 5px;

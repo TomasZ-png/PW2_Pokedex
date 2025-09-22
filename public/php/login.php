@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,12 +9,27 @@
     <link rel="stylesheet" href="../css/loggin-style.css">
     <title>Iniciar Sesion</title>
 </head>
+
+
 <body>
+
+<div class="header-arriba">
+    <div class="titulo-logo-container">
+        <div>
+            <a href="home.php"><img class="logo" src="../../src/img/logo-pokebola.png" alt="logo pokebola"></a>
+        </div>
+        <div class="titulo-container">
+            <h1>Pokédex</h1>
+        </div>
+    </div>
+</div>
+
 <main>
 
-    <div>
-        <a class="volver-btn" href="home.php"><i class="bi bi-arrow-left-short"></i>Volver</a>
-        <div class="contenedor-principal">
+
+
+    <div class="contenedor-principal">
+
 <h1>Bienvenido de nuevo!</h1>
 
 <form action="login.php" method="post" enctype="multipart/form-data">
@@ -62,9 +78,11 @@
 
     ?>
     <button type="submit">Iniciar Sesion</button>
+    <button><a class="registrarse-btn" href="registrarse.php">Registrarse</a></button>
 </form>
-</div>
     </div>
+       </div>
+
 </main>
 </body>
 </html>

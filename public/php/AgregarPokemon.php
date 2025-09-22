@@ -16,7 +16,7 @@
     <div class="form-container">
         <div class="formulario">
 <h1>Agregar Pokemon</h1>
-    <div class="form-container">
+    <div>
     <form action="AgregarPokemon.php" method="post" enctype="multipart/form-data">
         <label for="numero-pokemon">Numero:</label>
         <input type="number" name="numero" id="numero-pokemon" placeholder="Numero">

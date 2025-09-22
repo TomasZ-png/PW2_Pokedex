@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourcePerFileMappings">
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/9b8e6d21-56d3-4091-a42b-ca82903cb0d6/console_1.sql" value="9b8e6d21-56d3-4091-a42b-ca82903cb0d6" />
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/9b8e6d21-56d3-4091-a42b-ca82903cb0d6/console_2.sql" value="9b8e6d21-56d3-4091-a42b-ca82903cb0d6" />
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/9b8e6d21-56d3-4091-a42b-ca82903cb0d6/console_3.sql" value="9b8e6d21-56d3-4091-a42b-ca82903cb0d6" />
     <file url="file://$PROJECT_DIR$/database/pokedex_db.sql" value="9b8e6d21-56d3-4091-a42b-ca82903cb0d6" />
     <file url="file://$PROJECT_DIR$/public/php/home.php" value="9b8e6d21-56d3-4091-a42b-ca82903cb0d6" />
   </component>

@@ -4,6 +4,26 @@
     padding: 0;
 }
 
+.header-arriba {
+    padding: 20px;
+    background: #d1daff;
+}
+
+.header-arriba h1 {
+    font-size: 50px;
+    font-family: "Orbitron", sans-serif;
+}
+
+.titulo-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.header-arriba img {
+    width: 70px;
+}
 
 main{
     display: flex;
@@ -82,6 +102,19 @@ main{
     transition: all ease-in-out 0.2s;
 }
 
-.volver-btn:hover{
+.vovler-btn:hover{
+    background: #ff2323;
+}
+
+.registrarse-btn{
+    background: #ff5b23;
+    border-radius: 5px;
+    padding: 5px;
+    text-decoration: none;
+    color: white;
+    transition: all ease-in-out 0.2s;
+}
+
+.registrarse-btn:hover{
     background: #ff2323;
 }

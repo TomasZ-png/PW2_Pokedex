@@ -25,7 +25,10 @@
     <div class="header-buttons">
         <?php
         session_start();
-            if(isset($_SESSION["id_usuario"])){
+        if(!isset($_SESSION["id_usuario"])){
+            header("Location: login.php");
+            exit;
+        } elseif(isset($_SESSION["id_usuario"])){
                 echo '<a class="header-user" href="">' . $_SESSION["nombre_usuario"] . ' <i class="bi bi-person-circle"></i> <i class="bi bi-caret-down-fill"></i> </a>';
                 echo '<ul class="header-dropdown">
                         <li><a href="logout.php"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
