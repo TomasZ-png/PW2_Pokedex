@@ -186,8 +186,22 @@ main {
   transition: all 0.3s ease;
 }
 
+.dropdown-toggle {
+    display: none;
+}
+
+.dropdown-toggle:checked + .header-user + .header-dropdown {
+    opacity: 1;
+    visibility: visible;
+    /*transform: translateY(0);*/
+}
+
+.dropdown-toggle:checked + .header-user i.bi-caret-down-fill {
+    transform: rotate(180deg);
+}
+
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 668px) {
   .header-arriba {
     padding: 15px;
     flex-direction: column;
@@ -214,6 +228,14 @@ main {
   .header-buttons:hover .header-dropdown {
     transform: translateX(50%) translateY(0);
   }
+
+  .buscar input{
+      width: 50%;
+  }
+
+  .btn-buscar span{
+      display: none;
+  }
 }
 
 /*Buscador*/
@@ -223,7 +245,7 @@ main {
   justify-content: center; 
   margin: 20px auto;
   width: 100%;
-  max-width: 600px; 
+  max-width: 600px;
 }
 .buscar input {
   flex: 1; 

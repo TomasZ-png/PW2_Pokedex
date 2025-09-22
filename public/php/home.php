@@ -28,12 +28,12 @@
         if(!isset($_SESSION["id_usuario"])){
             header("Location: login.php");
             exit;
-        } elseif(isset($_SESSION["id_usuario"])){
-                echo '<a class="header-user" href="">' . $_SESSION["nombre_usuario"] . ' <i class="bi bi-person-circle"></i> <i class="bi bi-caret-down-fill"></i> </a>';
-                echo '<ul class="header-dropdown">
-                        <li><a href="logout.php"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
-                    </ul>';
-
+       } elseif(isset($_SESSION["id_usuario"])){
+            echo '<input type="checkbox" id="user-dropdown-toggle" class="dropdown-toggle">';
+            echo '<label for="user-dropdown-toggle" class="header-user">' . $_SESSION["nombre_usuario"] . ' <i class="bi bi-person-circle"></i> <i class="bi bi-caret-down-fill"></i></label>';
+            echo '<ul class="header-dropdown">
+                    <li><a href="logout.php"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
+                </ul>';
             } else {
                echo '<ul>
                         <li><a class="header-btn" href="registrarse.php">Registrarse</a></li>
@@ -45,7 +45,7 @@
 </div>
     <form class="buscar" action="pokemonBuscado.php" method="get">
         <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre, tipo o número de pokemon">
-        <button type="submit" class="btn-buscar"><i class="bi bi-search"></i> Buscar</button>
+        <button type="submit" class="btn-buscar"><i class="bi bi-search"></i> <span>Buscar</span></button>
     </form>
 
     <?php
