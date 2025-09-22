@@ -118,3 +118,13 @@ main{
 .registrarse-btn:hover{
     background: #ff2323;
 }
+
+@media (max-width: 700px) {
+    .contenedor-principal{
+        width: 100%;
+    }
+
+    .contenedor-principal h1{
+        font-size: 20px;
+    }
+}

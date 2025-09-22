@@ -80,7 +80,7 @@
 
     <?php
         if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
-            echo '<div style="display: flex; gap: 10px"><a class="agregar-btn" href="EditarPokemon.php?id_pokemon=' . $result["id_pokemon"] . '"><i class="bi bi-pencil"></i> Modificar Pokemon</a>';
+            echo '<div class="botones-adm" style="display: flex; gap: 10px"><a class="agregar-btn" href="EditarPokemon.php?id_pokemon=' . $result["id_pokemon"] . '"><i class="bi bi-pencil"></i> Modificar Pokemon</a>';
             echo '<a class="agregar-btn" href="BorrarPokemon.php?id_pokemon=' . $result["id_pokemon"] . '"><i class="bi bi-trash"></i> Eliminar Pokemon</a></div>';
         }
     ?>
