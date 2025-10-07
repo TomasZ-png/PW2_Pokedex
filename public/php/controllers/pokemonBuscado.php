@@ -1,70 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../css/homeStyles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="\PW2_Pokedex\src\img\favicon.ico">
-    <title>Pokedex - Buscar Pokemon</title>
-</head>
-<body>
-<main>
-
- <div class="header-arriba">
-    <div class="titulo-logo-container">
-        <div class="imagen-contenedor">
-            <a href="home.php"><img class="logo" src="../../src/img/logo-pokebola.png" alt="logo pokebola"></a>
-        </div>
-        <div class="titulo-container">
-            <h1>Pokédex</h1>
-        </div>
-    </div>
-
-    <div class="header-buttons">
-        <?php
-        session_start();
-
-        if(!isset($_SESSION["id_usuario"])){
-            header("location: login.php");
-        }
-
-            if(isset($_SESSION["id_usuario"])){
-                echo '<a class="header-user" href="">' . $_SESSION["nombre_usuario"] . ' <i class="bi bi-person-circle"></i> <i class="bi bi-caret-down-fill"></i> </a>';
-                echo '<ul class="header-dropdown">
-                        <li><a href="logout.php"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
-                    </ul>';
-
-            } else {
-               echo '<ul>
-                        <li><a class="header-btn" href="registrarse.php">Registrarse</a></li>
-                        <li><a class="header-btn" href="login.php">Iniciar Sesion</a></li>
-                    </ul>';
-            }
-        ?>
-    </div>
-</div>
-
-    <form class="buscar" action="pokemonBuscado.php" method="get">
-        <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre, tipo o número de pokemon">
-        <button type="submit" class="btn-buscar"><i class="bi bi-search"></i> Buscar</button>
-    </form>
-
-
     <?php
+    include_once('../vistas/partials/header.php');
+    include_once('../vistas/PokemonBuscadoVista.php');
+
     if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
         echo '<div class="admin-btn-container">';
-        echo '<a class="agregar-btn" href="AgregarPokemon.php"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
+        echo '<a class="agregar-btn" href="index.php?request=agregar-pokemon"><i class="bi bi-plus-circle"></i> Agregar Pokemon</a>';
         echo '</div>';
     }
     ?>
 
-
  <?php
 
-include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
-$conexion = new MyDatabase();
 $pokemones = []; // Inicializamos el array de pokemones vacío
 
 // aca buscamos por nombre
@@ -92,7 +38,7 @@ if (isset($_GET["nombre"]) && $_GET["nombre"] != "" && !empty(["nombre"])) {
 
         foreach ($pokemones as $pokemon) {
             echo "<div class='pokemon'>";
-            echo "<a href='pokemonVista.php?id_pokemon=" . $pokemon["id_pokemon"] . "'>";
+            echo "<a href='index.php?request=vista-pokemon&id_pokemon=" . $pokemon["id_pokemon"] . "'>";
             echo "<div class='datos-pokemon'>";
             echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
             echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
@@ -108,8 +54,8 @@ if (isset($_GET["nombre"]) && $_GET["nombre"] != "" && !empty(["nombre"])) {
             echo "</a>";
             if(isset($_SESSION['id_usuario']) && isset($_SESSION['rol_usuario']) && $_SESSION['rol_usuario'] == 'ADMIN'){
                 echo "<div class='acciones-admin'>";
-                echo "<a class='admin-btn editar' href='EditarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
-                echo "<a class='borrar-btn admin-btn' href='BorrarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-trash'></i> Borrar</a>";
+                echo "<a class='admin-btn editar' href='index.php?request=editar-pokemon&id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
+                echo "<a class='borrar-btn admin-btn' href='index.php?request=eliminar-pokemon&id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-trash'></i> Borrar</a>";
                 echo "</div>";
             }
             echo "</div>";
@@ -129,7 +75,7 @@ $tipos_pokemones_logo = ["Planta", "Agua", "Fuego"];
  echo '<div class="pokemones-container">';
  foreach ($pokemones as $pokemon) {
      echo "<div class='pokemon'>";
-     echo "<a href='pokemonVista.php?id_pokemon=" . $pokemon["id_pokemon"] . "'>";
+     echo "<a href='index.php?request=vista-pokemon&id_pokemon=" . $pokemon["id_pokemon"] . "'>";
      echo "<div class='datos-pokemon'>";
      echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
      echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
@@ -145,16 +91,11 @@ $tipos_pokemones_logo = ["Planta", "Agua", "Fuego"];
      echo "</a>";
      if(isset($_SESSION['id_usuario']) && isset($_SESSION['rol_usuario']) && $_SESSION['rol_usuario'] == 'ADMIN'){
          echo "<div class='acciones-admin'>";
-         echo "<a class='admin-btn editar' href='EditarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
-         echo "<a class='borrar-btn admin-btn' href='BorrarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-trash'></i> Borrar</a>";
+         echo "<a class='admin-btn editar' href='index.php?request=editar-pokemon&id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
+         echo "<a class='borrar-btn admin-btn' href='index.php?request=eliminar-pokemon&id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-trash'></i> Borrar</a>";
          echo "</div>";
      }
      echo "</div>";
  }
  echo "</div>";
 ?>
-
-</main>
-</body>
-</html>
-

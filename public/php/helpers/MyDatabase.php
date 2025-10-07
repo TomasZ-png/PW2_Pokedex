@@ -6,6 +6,11 @@ class MyDatabase
 
     public function __construct(){
         $config = parse_ini_file(__DIR__ . "/../../config/config.ini");
+
+        if (!$config) {
+            die("❌ No se pudo leer el archivo de configuración en: " . __DIR__ . "/../../config/config.ini");
+        }
+
         $this->conexion = new mysqli(
             $config["server"],
             $config["user"],

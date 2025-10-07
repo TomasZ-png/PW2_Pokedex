@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../css/vista-pokemon.css">
+    <link rel="stylesheet" href="../../css/vista-pokemon.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="\PW2_Pokedex\src\img\favicon.ico">
@@ -12,44 +12,18 @@
 <body>
 <main>
 
-    <div class="header-arriba">
-        <div class="titulo-logo-container">
-            <div class="imagen-contenedor">
-                <a href="home.php"><img class="logo" src="../../src/img/logo-pokebola.png" alt="logo pokebola"></a>
-            </div>
-            <div class="titulo-container">
-                <h1>Pokédex</h1>
-            </div>
-        </div>
+    <?php include_once('../vistas/partials/header.php') ;
+            include_once ('../vistas/PokemonVista-Vista.php');
+    ?>
 
-        <div class="header-buttons">
-            <?php
-            session_start();
-            if(isset($_SESSION["id_usuario"])){
-                echo '<a class="header-user" href="">' . $_SESSION["nombre_usuario"] . ' <i class="bi bi-person-circle"></i> <i class="bi bi-caret-down-fill"></i> </a>';
-                echo '<ul class="header-dropdown">
-                        <li><a href="logout.php"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a></li>
-                    </ul>';
-
-            } else {
-                echo '<ul>
-                        <li><a class="header-btn" href="registrarse.php">Registrarse</a></li>
-                        <li><a class="header-btn" href="login.php">Iniciar Sesion</a></li>
-                    </ul>';
-            }
-            ?>
-        </div>
-    </div>
     <div class="pokemon-container">
         <?php
+
+        global $conn;
 
         if(!isset($_SESSION["id_usuario"])){
             header("location: login.php");
         }
-
-        include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
-        $conexion = new MyDatabase();
-        $conn = $conexion->getConexion();
 
         $id_pokemon = $_GET["id_pokemon"];
 
@@ -84,8 +58,8 @@
 
     <?php
         if(isset($_SESSION["id_usuario"]) && isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] == "ADMIN"){
-            echo '<div class="botones-adm" style="display: flex; gap: 10px"><a class="agregar-btn" href="EditarPokemon.php?id_pokemon=' . $result["id_pokemon"] . '"><i class="bi bi-pencil"></i> Modificar Pokemon</a>';
-            echo '<a class="agregar-btn" href="BorrarPokemon.php?id_pokemon=' . $result["id_pokemon"] . '"><i class="bi bi-trash"></i> Eliminar Pokemon</a></div>';
+            echo '<div class="botones-adm" style="display: flex; gap: 10px"><a class="agregar-btn" href="index.php?request=editar-pokemon&id_pokemon=' . $result["id_pokemon"] . '"><i class="bi bi-pencil"></i> Modificar Pokemon</a>';
+            echo '<a class="agregar-btn" href="index.php?request=eliminar-pokemon&id_pokemon=' . $result["id_pokemon"] . '"><i class="bi bi-trash"></i> Eliminar Pokemon</a></div>';
         }
     ?>
 </main>

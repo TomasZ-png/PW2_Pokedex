@@ -1,34 +1,16 @@
-<!doctype html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"/>
-    <link rel="stylesheet" href="../css/agregarPokemonStyles.css">
-    <link rel="stylesheet" href="../css/homeStyles.css">
-    <link rel="icon" type="image/png" href="\PW2_Pokedex\src\img\favicon.ico">
-    <title>Pokedex - Borrar Pokemon</title>
-</head>
-<body>
-<main>
-
-    <div><a class="volver-btn" href="home.php"><i class="bi bi-arrow-left-short"></i> Volver a inicio</a></div>
-
-    <?php
-    session_start();
+<?php
+    include_once('../vistas/BorrarPokemonVista.php');
     if(!isset($_SESSION["rol_usuario"]) && $_SESSION["rol_usuario"] != "ADMIN"){
         header("location: home.php");
     }
-
-    include_once(__DIR__ . "/../../src/Entities/MyDatabase.php");
-    $conexion = new MyDatabase();
-    $conn = $conexion->getConexion();
 
     if(isset($_GET["id_pokemon"])){
         $id_pokemon = $_GET["id_pokemon"];
     } else{
         $id_pokemon = "";
     }
+
+    global $conn;
 
     $stmtBuscar = $conn->prepare("SELECT nombre FROM pokemones WHERE id_pokemon = ?");
     $stmtBuscar->bind_param("i", $id_pokemon);
@@ -52,7 +34,7 @@
             <input type="text" name="nombreEliminar" id="nombreEliminar" placeholder="Nombre" value="' . $nombrePokemon . '">
             <div class="btn-form">
                 <button class="form-button" type="submit"><i class="bi bi-check2-circle"></i> Eliminar Pokemon</button>
-                <a class="form-button" href="home.php"><i class="bi bi-x-circle"></i> Cancelar</a>
+                <a class="form-button" href="index.php?request=home"><i class="bi bi-x-circle"></i> Cancelar</a>
             </div>
         </form>
     </div>
@@ -91,7 +73,7 @@ if (empty($pokemones)) {
     
     foreach ($pokemones as $pokemon) {
         echo "<div class='pokemon'>";
-        echo "<a href='pokemonVista.php?id_pokemon=" . $pokemon["id_pokemon"] . "'>";
+        echo "<a href='index.php?request=vista-pokemon&id_pokemon=" . $pokemon["id_pokemon"] . "'>";
         echo "<div class='datos-pokemon'>";
         echo "<p class='numero-pokemon'>N°" . $pokemon["numero"] . "</p>";
         echo "<p class='nombre-pokemon'>" . $pokemon["nombre"] . "</p>";
@@ -107,17 +89,10 @@ if (empty($pokemones)) {
         echo "</a>";
         if(isset($_SESSION['id_usuario']) && isset($_SESSION['rol_usuario']) && $_SESSION['rol_usuario'] == 'ADMIN'){
             echo "<div class='acciones-admin'>";
-            echo "<a class='admin-btn editar' href='EditarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
-            echo "<a class='borrar-btn admin-btn' href='BorrarPokemon.php?id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-trash'></i> Borrar</a>";
+            echo "<a class='admin-btn editar' href='index.php?request=editar-pokemon&id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-pencil-square'></i> Editar</a>";
+            echo "<a class='borrar-btn admin-btn' href='index.php?request=eliminar-pokemon&id_pokemon=" . $pokemon["id_pokemon"] . "'><i class='bi bi-trash'></i> Borrar</a>";
             echo "</div>";
         }
         echo "</div>";
     }
 }
-
-?>
-</div>
-</main>
-</body>
-</html>
-    
